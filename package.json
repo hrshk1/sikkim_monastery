@@ -1,7 +1,8 @@
 {
-  "name": "nextn",
+  "name": "sikkim-archive",
   "version": "0.1.0",
   "private": true,
+  "description": "A cultural preservation and archiving platform for the monasteries of Sikkim.",
   "scripts": {
     "dev": "next dev --turbopack -p 9002",
     "genkit:dev": "genkit start -- tsx src/ai/dev.ts",
