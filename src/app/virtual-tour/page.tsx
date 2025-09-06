@@ -21,11 +21,11 @@ export default function VirtualTourPage() {
       <CardContent>
         <div className="relative w-full aspect-video rounded-lg overflow-hidden shadow-lg">
           <Image
-            src="https://picsum.photos/1600/900?random=15"
+            src="https://images.unsplash.com/photo-1547496222-0987353925a1?q=80&w=1600&auto=format&fit=crop"
             alt="Monastery Prayer Hall"
             fill
             className="object-cover"
-            data-ai-hint="monastery interior"
+            data-ai-hint="sikkim monastery"
           />
 
           {/* Hotspot 1: Main Statue */}

@@ -13,30 +13,30 @@ const manuscripts = [
   {
     title: "Prajnaparamita Sutra",
     description: "A collection of Mahayana scriptures on the 'Perfection of Wisdom,' written in ancient Tibetan script.",
-    image: "https://picsum.photos/400/300?random=7",
+    image: "https://images.unsplash.com/photo-1621584742096-281a02254a4f?q=80&w=800&auto=format&fit=crop",
     tags: ["Mahayana", "Sutra", "Wisdom"],
-    hint: "ancient script",
+    hint: "ancient manuscript",
   },
   {
     title: "The Life of Milarepa",
     description: "Biography of the famous Tibetan yogi and poet, Milarepa, detailing his journey from a dark past to enlightenment.",
-    image: "https://picsum.photos/400/300?random=8",
+    image: "https://images.unsplash.com/photo-1599471309373-35a1438a923c?q=80&w=800&auto=format&fit=crop",
     tags: ["Biography", "Yogi", "Poetry"],
     hint: "tibetan text",
   },
   {
     title: "Bardo Thödol",
     description: "Known as 'The Tibetan Book of the Dead,' this text is a guide for the consciousness after death.",
-    image: "https://picsum.photos/400/300?random=9",
+    image: "https://images.unsplash.com/photo-1601007797747-9bad95d54044?q=80&w=800&auto=format&fit=crop",
     tags: ["Vajrayana", "Afterlife", "Guide"],
-    hint: "sacred text",
+    hint: "sacred scroll",
   },
   {
     title: "Kangyur Collection",
     description: "Part of the Tibetan Buddhist canon, containing the 'translated words' of the Buddha.",
-    image: "https://picsum.photos/400/300?random=10",
+    image: "https://images.unsplash.com/photo-1560909068-15589d443b87?q=80&w=800&auto=format&fit=crop",
     tags: ["Canon", "Buddha's Teachings", "Collection"],
-    hint: "stacked manuscript",
+    hint: "manuscript collection",
   },
 ];
 
