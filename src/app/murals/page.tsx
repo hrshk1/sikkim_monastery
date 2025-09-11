@@ -19,7 +19,7 @@ const murals = [
   {
     title: "Wheel of Life (Bhavacakra)",
     description: "A symbolic representation of samsara, the endless cycle of birth, death, and rebirth. It is held by Yama, the lord of death.",
-    image: "https://picsum.photos/seed/bhavacakra/800/600",
+    image: "",
     hint: "bhavacakra mural",
   },
   {
