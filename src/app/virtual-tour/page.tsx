@@ -21,7 +21,7 @@ export default function VirtualTourPage() {
       <CardContent>
         <div className="relative w-full aspect-video rounded-lg overflow-hidden shadow-lg">
           <Image
-            src="https://images.unsplash.com/photo-1547496222-0987353925a1?q=80&w=1600&auto=format&fit=crop"
+            src="https://picsum.photos/seed/tour/1600/900"
             alt="Monastery Prayer Hall"
             fill
             className="object-cover"

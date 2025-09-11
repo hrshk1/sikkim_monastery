@@ -19,25 +19,25 @@ const murals = [
   {
     title: "Wheel of Life (Bhavacakra)",
     description: "A symbolic representation of samsara, the endless cycle of birth, death, and rebirth. It is held by Yama, the lord of death.",
-    image: "https://images.unsplash.com/photo-1579211938-1647f359c5d1?q=80&w=800&auto=format&fit=crop",
+    image: "https://picsum.photos/seed/bhavacakra/800/600",
     hint: "bhavacakra mural",
   },
   {
     title: "Mandala of Avalokiteshvara",
     description: "A geometric configuration of symbols representing the celestial palace of Avalokiteshvara, the bodhisattva of compassion.",
-    image: "https://images.unsplash.com/photo-1598224538806-0d94a1103f6f?q=80&w=800&auto=format&fit=crop",
+    image: "https://picsum.photos/seed/mandala/800/600",
     hint: "mandala mural",
   },
   {
     title: "Life of the Buddha",
     description: "A series of narrative panels depicting key events from the life of Siddhartha Gautama, from his birth to his parinirvana.",
-    image: "https://images.unsplash.com/photo-1599471391062-864fe3a4f655?q=80&w=800&auto=format&fit=crop",
+    image: "https://picsum.photos/seed/buddha/800/600",
     hint: "buddha mural",
   },
   {
     title: "Guru Padmasambhava",
     description: "A mural dedicated to the 'Second Buddha,' who is credited with bringing Buddhism to Tibet and Sikkim.",
-    image: "https://images.unsplash.com/photo-1601007797747-9bad95d54044?q=80&w=800&auto=format&fit=crop",
+    image: "https://picsum.photos/seed/padmasambhava/800/600",
     hint: "padmasambhava mural",
   },
 ];
