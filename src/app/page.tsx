@@ -60,6 +60,7 @@ const features = [
     href: "/community",
     icon: <Users className="h-6 w-6" />,
   },
+  
 ];
 
 export default function Home() {

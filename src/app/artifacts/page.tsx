@@ -11,7 +11,7 @@ const artifacts = [
   {
     title: "Phurba Dagger",
     description: "A ritual dagger used in Vajrayana Buddhist ceremonies to subdue demonic forces and clear spiritual obstacles.",
-    image: "https://picsum.photos/seed/phurba/800/600",
+    image: "https://raw.githubusercontent.com/harshyadav2810/Sikkim-Monastery-project/main/mon2.jpg",
     hint: "phurba dagger",
   },
   {
