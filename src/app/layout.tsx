@@ -8,7 +8,8 @@ import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
 
 export const metadata: Metadata = {
   title: 'Sikkim Archive',
-  description: 'Digitise Monastery of Sikkim – A cultural preservation and archiving platform.',
+  // CORRECTED: Replaced en dash with a standard hyphen
+  description: 'Digitise Monastery of Sikkim - A cultural preservation and archiving platform.',
 };
 
 export default function RootLayout({

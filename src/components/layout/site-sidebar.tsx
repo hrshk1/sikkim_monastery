@@ -1,5 +1,4 @@
 "use client";
-
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -11,6 +10,7 @@ import {
   Ticket,
   Users,
   Home,
+  DollarSign // Added DollarSign icon
 } from "lucide-react";
 import {
   Sidebar,
@@ -31,6 +31,7 @@ const menuItems = [
   { href: "/festivals", label: "Festivals", icon: CalendarDays },
   { href: "/booking", label: "Book a Visit", icon: Ticket },
   { href: "/community", label: "Community", icon: Users },
+  { href: "/donations", label: "Donations", icon: DollarSign }, // New donations link
 ];
 
 export function SiteSidebar() {

@@ -1,85 +1,52 @@
 'use server';
 
-import { ai } from '@/ai/genkit';
-import { z } from 'genkit';
-import { googleAI } from '@genkit-ai/googleai';
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import { z } from "zod";
 
-// Initialize GoogleAI client with your API key from environment variable
-const googleAIClient = new googleAI({
-  apiKey: process.env.GOOGLE_API_KEY!,
-});
-
+// Define the input and output schema for Zod validation
 const SummarizeContributionInputSchema = z.object({
-  contributionText: z.string().describe('The text of the community contribution.'),
-  sourceQuality: z
-    .number()
-    .min(0)
-    .max(10)
-    .describe('A score indicating the quality of the contribution source (0-10).'),
   artifactName: z.string().describe('The name of the artifact the contribution is about.'),
+  contributionText: z.string().describe('The text of the community contribution.'),
+  sourceQuality: z.number().min(0).max(10).describe('A score indicating the quality of the contribution source (0-10).'),
 });
-export type SummarizeContributionInput = z.infer<typeof SummarizeContributionInputSchema>;
 
 const SummarizeContributionOutputSchema = z.object({
   summary: z.string().describe('A concise summary of the community contribution.'),
 });
-export type SummarizeContributionOutput = z.infer<typeof SummarizeContributionOutputSchema>;
 
-export async function summarizeContribution(input: SummarizeContributionInput): Promise<SummarizeContributionOutput> {
-  return summarizeContributionFlow(input);
-}
-
-// Tool to check quality threshold
-const contributionQualityCheckTool = ai.defineTool(
-  {
-    name: 'contributionQualityCheck',
-    description: 'Check the quality of the contribution and determine if it is good enough to be used for summarization.',
-    inputSchema: z.object({
-      sourceQuality: z.number().min(0).max(10).describe('A score indicating the quality of the contribution source (0-10).'),
-    }),
-    outputSchema: z.boolean().describe('Returns true if the quality is high enough, false otherwise.'),
-  },
-  async (input) => {
-    return input.sourceQuality >= 5; // threshold 5
+export async function summarizeContribution(input: z.infer<typeof SummarizeContributionInputSchema>): Promise<z.infer<typeof SummarizeContributionOutputSchema>> {
+  
+  // Explicitly check for the API key
+  const apiKey = process.env.GOOGLE_API_KEY;
+  if (!apiKey) {
+    console.error("Missing GOOGLE_API_KEY environment variable.");
+    throw new Error("API key not configured.");
   }
-);
 
-// Function to call Vertex AI text generation using GoogleAI client
-async function generateSummary(prompt: string): Promise<string> {
-  const response = await googleAIClient.textGeneration({
-    model: 'text-bison@001',  // Use appropriate Vertex AI model
-    prompt,
-    temperature: 0.7,
-    maxTokens: 300,
-  });
+  const genAI = new GoogleGenerativeAI(apiKey);
+  const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
-  return response.completions[0].output;
-}
+  // Check quality threshold
+  if (input.sourceQuality < 5) {
+    return { summary: 'Contribution is of insufficient quality.' };
+  }
 
-// Flow that uses quality check and generates summary via Vertex AI
-const summarizeContributionFlow = ai.defineFlow(
-  {
-    name: 'summarizeContributionFlow',
-    inputSchema: SummarizeContributionInputSchema,
-    outputSchema: SummarizeContributionOutputSchema,
-  },
-  async (input) => {
-    const qualityCheck = await contributionQualityCheckTool({
-      sourceQuality: input.sourceQuality,
-    });
-
-    if (!qualityCheck) {
-      return { summary: 'Contribution is of insufficient quality.' };
-    }
-
-    // Create a prompt with artifact name and contribution text
-    const prompt = `You are a content manager for a digital archive of a Sikkim monastery. 
+  // Create a prompt with artifact name and contribution text
+  const prompt = `
+    You are a content manager for a digital archive of a Sikkim monastery. 
     Summarize the following contribution about the artifact named "${input.artifactName}" in a concise way: 
-    "${input.contributionText}"`;
+    "${input.contributionText}"
+  `;
 
-    const summary = await generateSummary(prompt);
+  try {
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const summary = response.text();
 
-    return { summary };
+    return { summary: summary.trim() };
+  } catch (error) {
+    console.error("AI summarization failed:", error);
+    // Return a user-friendly error message
+    throw new Error("Failed to generate summary. Please check your API key and try again.");
   }
-);
-
+}

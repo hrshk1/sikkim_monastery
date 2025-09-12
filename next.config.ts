@@ -34,12 +34,55 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
-       {
-      protocol: 'https',
-      hostname: 'raw.githubusercontent.com',
-      port: '',
-      pathname: '/**',
-    }
+      {
+        protocol: 'https',
+        hostname: 'raw.githubusercontent.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'i.imgur.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.360cities.net',
+        port: '',
+        pathname: '/**',
+      },
+      // New hostnames for the updated image links
+      {
+        protocol: 'https',
+        hostname: 'images.pexels.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.pixabay.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'i.ibb.co',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.thecollector.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.britishmuseum.org',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 };

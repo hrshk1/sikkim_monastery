@@ -1,7 +1,7 @@
 "use client";
-
 import { usePathname } from "next/navigation";
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import { Icons } from "@/components/icons";
 
 const pageTitles: { [key: string]: string } = {
   "/": "Dashboard",
@@ -12,6 +12,7 @@ const pageTitles: { [key: string]: string } = {
   "/festivals": "Festivals & Events",
   "/booking": "Visitor Booking",
   "/community": "Community Contributions",
+  "/donations": "Donations" // Added for consistency
 };
 
 export function SiteHeader() {
