@@ -62,7 +62,7 @@ export default function SignUp() {
       setTimeout(() => {
         setSuccess(false);
         router.push('/booking/form');  // Change '/booking' to your actual booking page route
-      }, 300);
+      }, 100);
     } else {
       setSuccess(false);
     }
