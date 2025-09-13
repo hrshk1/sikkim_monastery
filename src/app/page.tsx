@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from 'react';
+import Link from 'next/link';
 import {
   BookCopy,
   Landmark,
@@ -131,11 +132,11 @@ const App = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
+    <div className="min-h-screen bg-stone-100 p-8"> {/* Changed from bg-gray-100 to bg-stone-100 */}
       <div className="max-w-4xl mx-auto space-y-12">
         {/* Welcome Section */}
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">
+          <h1 className="text-4xl font-bold text-gray-800 mb-2"> {/* Changed text color */}
             Welcome to the Sikkim Archive
           </h1>
           <p className="text-lg text-gray-600">
@@ -188,12 +189,13 @@ const App = () => {
         {/* Features Grid */}
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {features.map((feature) => (
-            <Card
-              key={feature.href}
-              title={feature.title}
-              description={feature.description}
-              icon={feature.icon}
-            />
+            <Link key={feature.href} href={feature.href}>
+              <Card
+                title={feature.title}
+                description={feature.description}
+                icon={feature.icon}
+              />
+            </Link>
           ))}
         </div>
       </div>
