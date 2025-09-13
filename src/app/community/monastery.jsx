@@ -17,43 +17,22 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { Slider } from "@/components/ui/slider";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
-import { Loader2, Sparkles, Info, BookOpen, MapPin, Calendar } from "lucide-react";
+import { Loader2, Sparkles, Info, BookOpen, Star } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";
 
-// Define monasteries data directly in the file
-const monasteries = [
-  {
-    id: "taktsang",
-    name: "Taktsang Palphug Monastery",
-    description: "Also known as Tiger's Nest, this sacred Buddhist site is perched on a cliffside in the Paro Valley of Bhutan.",
-    history: "It was built in 1692 around the cave where Guru Rinpoche meditated in the 8th century.",
-    location: "Paro Valley, Bhutan",
-    summary: "Taktsang Palphug Monastery, commonly known as Tiger's Nest, is a prominent Himalayan Buddhist sacred site and temple complex located in the cliffside of the upper Paro valley in Bhutan. Built in 1692 around the Taktsang Senge Samdup cave where Guru Padmasambhava meditated in the 8th century, it is considered one of the most sacred sites in Bhutan. The monastery complex has withstood earthquakes and fires throughout its history and has been rebuilt multiple times while maintaining its spiritual significance."
-  },
-  {
-    id: "key",
-    name: "Key Monastery",
-    description: "A Tibetan Buddhist monastery located in the Spiti Valley of Himachal Pradesh, India.",
-    history: "Founded in the 11th century, it has been attacked several times by Mongol and other armies.",
-    location: "Spiti Valley, India",
-    summary: "Key Monastery, also spelled Ki or Kee, is a Tibetan Buddhist monastery located at an altitude of 4,166 meters in the Spiti Valley of Himachal Pradesh, India. Founded in the 11th century by Dromton, a disciple of the famous teacher Atisha, it is the largest monastery in Spiti Valley. The monastery has endured multiple attacks over centuries, including from Mongols and other armies, and has been rebuilt several times. It serves as an important religious training center for lamas and houses valuable ancient Buddhist manuscripts and artifacts."
-  },
-  {
-    id: "punakha",
-    name: "Punakha Dzong",
-    description: "Also known as Pungthang Dewa chhenbi Phodrang, it is the administrative center of Punakha District in Bhutan.",
-    history: "Constructed in 1637–38, it is the second oldest and second largest dzong in Bhutan.",
-    location: "Punakha, Bhutan",
-    summary: "Punakha Dzong, officially known as Pungthang Dewa chhenbi Phodrang, is the administrative center of Punakha District in Bhutan. Constructed in 1637-38 by Ngawang Namgyal, the first Zhabdrung Rinpoche, it is the second oldest and second largest dzong in Bhutan. Strategically built at the confluence of the Pho Chhu and Mo Chhu rivers, it has served as the capital of Bhutan until the time of the second king. The dzong houses sacred Buddhist relics and was the site of the coronation of Ugyen Wangchuck as the first King of Bhutan in 1907."
-  }
-];
+// Import monasteries data
+import { monasteries } from "@/data/monasteries";
 
 const formSchema = z.object({
   artifactName: z.string().min(2, {
     message: "Artifact name must be at least 2 characters.",
+  }),
+  contributionText: z.string().min(10, {
+    message: "Contribution must be at least 10 characters long.",
   }),
   sourceQuality: z.array(z.number()).min(1).max(1).transform(arr => arr[0]),
 });
@@ -64,13 +43,13 @@ export default function CommunityPage() {
   const [isPending, startTransition] = useTransition();
   const [summary, setSummary] = useState<string | null>(null);
   const [knownDetails, setKnownDetails] = useState<string | null>(null);
-  const [selectedMonastery, setSelectedMonastery] = useState<any>(null);
   const { toast } = useToast();
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       artifactName: "",
+      contributionText: "",
       sourceQuality: [5],
     },
   });
@@ -79,39 +58,24 @@ export default function CommunityPage() {
 
   useEffect(() => {
     if (artifactName) {
-      const monastery = monasteries.find(m => 
-        m.name.toLowerCase().includes(artifactName.toLowerCase()) || 
-        artifactName.toLowerCase().includes(m.name.toLowerCase())
-      );
-      
+      const monastery = monasteries.find(m => m.name.toLowerCase() === artifactName.toLowerCase());
       if (monastery) {
-        setSelectedMonastery(monastery);
         setKnownDetails(`Location: ${monastery.location}\n\nDescription: ${monastery.description}\n\nHistory: ${monastery.history}`);
       } else {
         setKnownDetails(null);
-        setSelectedMonastery(null);
       }
     } else {
       setKnownDetails(null);
-      setSelectedMonastery(null);
     }
-  }, [artifactName, form]);
+  }, [artifactName]);
 
   function onSubmit(values: FormValues) {
     startTransition(async () => {
       setSummary(null);
+      setKnownDetails(null);
       try {
-        // If it's a known monastery, use its predefined summary
-        if (selectedMonastery) {
-          setSummary(selectedMonastery.summary);
-        } else {
-          // For unknown artifacts, we still need to call the AI
-          const result = await summarizeContribution({
-            ...values,
-            contributionText: "No additional contribution provided."
-          });
-          setSummary(result.summary);
-        }
+        const result = await summarizeContribution(values);
+        setSummary(result.summary);
       } catch (error) {
         console.error("Summarization failed:", error);
         toast({
@@ -128,7 +92,7 @@ export default function CommunityPage() {
       <div className="text-center mb-10">
         <h1 className="font-headline text-4xl font-bold mb-3">Community Contributions</h1>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          Share your knowledge about cultural artifacts. High-quality submissions will be summarized by AI and added to the archive.
+          Share your knowledge about cultural artifacts and help expand our collective understanding.
         </p>
       </div>
 
@@ -142,7 +106,7 @@ export default function CommunityPage() {
               <div>
                 <CardTitle className="font-headline text-2xl">Share Your Knowledge</CardTitle>
                 <CardDescription>
-                  Enter the name of an artifact to get an AI-generated summary. Recognized monasteries will display their details.
+                  Contribute information about an artifact. High-quality submissions will be summarized by AI and added to the archive.
                 </CardDescription>
               </div>
             </div>
@@ -157,7 +121,24 @@ export default function CommunityPage() {
                     <FormItem>
                       <FormLabel className="text-base">Artifact Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="e.g., Singing Bowl or Monastery Name" {...field} className="h-12" />
+                        <Input placeholder="e.g., Singing Bowl" {...field} className="h-12" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="contributionText"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-base">Your Contribution</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="Share details, history, or stories about the artifact..."
+                          className="min-h-[180px] resize-none"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -181,7 +162,6 @@ export default function CommunityPage() {
                             max={10}
                             step={1}
                             defaultValue={[5]}
-                            value={[field.value]}
                             onValueChange={field.onChange}
                             className="py-4"
                           />
@@ -225,7 +205,7 @@ export default function CommunityPage() {
               <div>
                 <CardTitle className="font-headline text-2xl">AI-Generated Summary</CardTitle>
                 <CardDescription>
-                  The AI will analyze your input and create a concise summary.
+                  The AI will analyze your contribution and create a concise summary.
                 </CardDescription>
               </div>
             </div>
@@ -234,13 +214,13 @@ export default function CommunityPage() {
             {isPending ? (
               <div className="flex flex-col items-center gap-3 text-muted-foreground py-8">
                 <Loader2 className="h-10 w-10 animate-spin text-amber-500" />
-                <p className="text-lg font-medium">Analyzing your input...</p>
+                <p className="text-lg font-medium">Analyzing your contribution...</p>
                 <p className="text-sm text-center max-w-xs">This may take a few moments</p>
               </div>
             ) : summary ? (
-              <div className="py-4 w-full">
+              <div className="py-4">
                 <div className="flex items-center gap-2 mb-4">
-                  <Sparkles className="h-5 w-5 text-amber-500" />
+                  <Star className="h-5 w-5 text-amber-500 fill-current" />
                   <h3 className="font-semibold">Summary</h3>
                 </div>
                 <div className="prose prose-sm max-w-none">
@@ -248,7 +228,7 @@ export default function CommunityPage() {
                 </div>
               </div>
             ) : knownDetails ? (
-              <div className="py-4 w-full">
+              <div className="py-4">
                 <div className="flex items-center gap-2 mb-4">
                   <Info className="h-5 w-5 text-blue-500" />
                   <h3 className="font-semibold">Known Details</h3>
@@ -262,8 +242,8 @@ export default function CommunityPage() {
                 <div className="bg-muted rounded-full p-4 w-16 h-16 flex items-center justify-center mx-auto mb-4">
                   <Sparkles className="h-8 w-8 text-muted-foreground" />
                 </div>
-                <h3 className="font-medium text-lg mb-2">Awaiting Input</h3>
-                <p className="text-muted-foreground">Enter an artifact name to generate a summary.</p>
+                <h3 className="font-medium text-lg mb-2">Awaiting Contribution</h3>
+                <p className="text-muted-foreground">Submit information about an artifact to generate a summary.</p>
               </div>
             )}
           </CardContent>
@@ -276,6 +256,24 @@ export default function CommunityPage() {
         </Card>
       </div>
 
+      <div className="mt-12">
+        <h2 className="text-2xl font-bold mb-6 font-headline">Known Monasteries</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {monasteries.map((monastery, index) => (
+            <Card key={index} className="h-full">
+              <CardHeader>
+                <CardTitle>{monastery.name}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="font-semibold">{monastery.location}</p>
+                <p className="mt-2">{monastery.description}</p>
+                <p className="mt-2 text-sm">{monastery.history}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+
       <div className="mt-12 bg-blue-50 rounded-lg p-6 border">
         <div className="flex items-start gap-4">
           <div className="bg-blue-100 p-2 rounded-full">
@@ -284,9 +282,9 @@ export default function CommunityPage() {
           <div>
             <h3 className="font-medium text-lg mb-2">How It Works</h3>
             <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-              <li>Enter the name of a cultural artifact or monastery</li>
-              <li>Our AI will generate a concise summary based on known information</li>
-              <li>High-quality submissions may be added to the permanent archive</li>
+              <li>Provide accurate information about cultural artifacts</li>
+              <li>Our AI analyzes your contribution and creates a concise summary</li>
+              <li>High-quality contributions may be added to the permanent archive</li>
               <li>Rate your source quality to help us evaluate the information</li>
             </ul>
           </div>
