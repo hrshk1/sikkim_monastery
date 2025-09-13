@@ -54,7 +54,6 @@
     "react-day-picker": "^9.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2",
-    "react-pannellum": "^0.2.16",
     "react-zoom-pan-pinch": "^3.7.0",
     "recharts": "^2.15.1",
     "tailwind-merge": "^3.3.1",
