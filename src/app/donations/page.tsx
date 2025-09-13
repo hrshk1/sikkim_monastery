@@ -41,7 +41,7 @@ export default function DonationsPage() {
         <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {donationOptions.map((option) => (
             <Card 
-             
+             key={option.label}
               className="relative flex flex-col items-center justify-between text-center p-6 transition-transform duration-200 hover:scale-105 overflow-hidden min-h-[250px]"
               style={{ 
                 backgroundImage: `url(${option.image})`, 

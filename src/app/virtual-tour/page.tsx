@@ -5,19 +5,16 @@ import dynamic from "next/dynamic";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
-
-// Dynamically import Pannellum with SSR disabled
-const Pannellum = dynamic(() => import("react-pannellum"), {
-  ssr: false,
-});
+import Link from "next/link"; // Import Link for navigation
 
 // A plain JavaScript function to create the tooltip for Pannellum hotspots
+// This function is not used in this version but is left for context
 function createHotspotFunction(hotSpotDiv, args) {
   hotSpotDiv.classList.add("info-hotspot");
   var span = document.createElement("span");
   span.innerHTML = args.text;
   hotSpotDiv.appendChild(span);
-  
+
   hotSpotDiv.style.width = "40px";
   hotSpotDiv.style.height = "40px";
   hotSpotDiv.style.borderRadius = "50%";
@@ -27,139 +24,96 @@ function createHotspotFunction(hotSpotDiv, args) {
   hotSpotDiv.style.alignItems = "center";
   hotSpotDiv.style.justifyContent = "center";
   hotSpotDiv.style.cursor = "pointer";
-  
-  // Simple on-click logic (you can replace this with a pop-up)
+
   hotSpotDiv.addEventListener("click", () => {
     alert(args.text);
   });
 }
 
-// Your tour locations data with hotspots
+// Your tour locations data with all six entries and proper syntax
 const tourLocations = [
   {
     id: 1,
-    title: "Prayer Hall",
-    description: "Explore the main prayer hall.",
-    image: "https://raw.githubusercontent.com/harshyadav2810/Sikkim-Monastery-project/main/mon360.jpg",
-    hotspots: [
-      {
-        pitch: -1.78,
-        yaw: -113.6,
-        type: "info",
-        text: "Main Deity Statue: This is the central statue of Guru Rinpoche.",
-        createTooltipFunc: createHotspotFunction,
-      },
-      {
-        pitch: -3.8,
-        yaw: 15.1,
-        type: "info",
-        text: "Wall Murals: These intricate paintings depict the life of the Buddha.",
-        createTooltipFunc: createHotspotFunction,
-      },
-    ],
+    title: "Rumtek Monastery",
+    description: "Known for its Golden Stupa, it is the largest monastery in Sikkim",
+    image: "https://raw.githubusercontent.com/harshyadav2810/Sikkim-Monastery-project/main/mona1.jpg",
+    hotspots: [], // No longer needed for this approach
   },
   {
     id: 2,
-    title: "Library",
-    description: "Discover the ancient manuscripts.",
-    image: "https://i.imgur.com/W2q2oFm.jpg",
-    hotspots: [
-      {
-        pitch: 10,
-        yaw: 120,
-        type: "info",
-        text: "Ancient Texts: These are centuries-old manuscripts.",
-        createTooltipFunc: createHotspotFunction,
-      },
-    ],
+    title: "Pemayangtse Monastery",
+    description: "One of the oldest and most important monasteries, it offers stunning views of Mount Kanchenjunga.",
+    image: "https://raw.githubusercontent.com/harshyadav2810/Sikkim-Monastery-project/main/mona2.jpg",
+    hotspots: [], // No longer needed for this approach
   },
   {
     id: 3,
-    title: "Courtyard",
-    description: "Tour the beautiful outdoor space.",
-    image: "https://i.imgur.com/8Qn7p7C.jpg",
+    title: "Tashiding Monastery",
+    description: "This monastery is considered the most sacred, with legends of a 'Holy Water Vase' that purifies sins.",
+    image: "https://raw.githubusercontent.com/harshyadav2810/Sikkim-Monastery-project/main/mona%203.jpg",
     hotspots: [],
   },
   {
     id: 4,
-    title: "Monk's Quarters",
-    description: "A glimpse into a monk's life.",
-    image: "https://i.imgur.com/3Z5Vw8t.jpg",
+    title: "Enchey Monastery",
+    description: "An important center of the Nyingma order, its name means 'solitary temple.",
+    image: "https://raw.githubusercontent.com/harshyadav2810/Sikkim-Monastery-project/main/mona%204.jpg",
     hotspots: [],
   },
   {
     id: 5,
-    title: "Temple Entrance",
-    description: "The grand entrance of the monastery.",
-    image: "https://i.imgur.com/f7jYy3U.jpg",
+    title: "Phodong Monastery",
+    description: "One of the six major monasteries, it houses beautiful murals and ancient artifacts.",
+    image: "https://raw.githubusercontent.com/harshyadav2810/Sikkim-Monastery-project/main/mona%205.jpg",
+    hotspots: [],
+  },
+  {
+    id: 6,
+    title: "Rinchenpong Monastery",
+    description: "Known for its unique Buddhist mural, 'The Drukpa Kagyu', it is set against a backdrop of breathtaking scenery.",
+    image: "https://raw.githubusercontent.com/harshyadav2810/Sikkim-Monastery-project/main/mona%206.jpg",
     hotspots: [],
   },
 ];
 
 export default function VirtualTourPage() {
-  const [selectedTour, setSelectedTour] = useState(null);
-
-  if (selectedTour) {
-    return (
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between">
-          <div>
-            <CardTitle className="font-headline text-2xl">{selectedTour.title}</CardTitle>
-            <CardDescription>{selectedTour.description}</CardDescription>
-          </div>
-          <Button onClick={() => setSelectedTour(null)} variant="outline" size="icon">
-            <ArrowLeft className="h-4 w-4" />
-          </Button>
-        </CardHeader>
-        <CardContent>
-          <div className="relative w-full h-[500px] rounded-lg overflow-hidden shadow-lg">
-            <Pannellum
-              width="100%"
-              height="100%"
-              image={selectedTour.image}
-              pitch={10}
-              yaw={180}
-              autoLoad
-              showControls={false}
-              hotspots={selectedTour.hotspots}
-            />
-          </div>
-        </CardContent>
-      </Card>
-    );
-  }
+  // The useState and the if(selectedTour) block are removed entirely
+  // as the page now handles full navigation instead of state changes.
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="font-headline text-2xl">Monastery Virtual Tour</CardTitle>
-        <CardDescription>
+    <div className="flex min-h-screen w-full flex-col bg-stone-100">
+      <div className="p-4 md:p-8 text-center">
+        <h1 className="font-headline text-3xl font-bold">Monastery Virtual Tour</h1>
+        <p className="text-muted-foreground mt-2 text-base">
           Select an area below to start your 360-degree virtual tour.
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4 md:p-8">
         {tourLocations.map((location) => (
-          <div
+          // The href now correctly links to each specific HTML file
+          <a
             key={location.id}
-            onClick={() => setSelectedTour(location)}
-            className="group relative cursor-pointer overflow-hidden rounded-lg shadow-md transition-transform duration-300 hover:scale-105"
+            href={`/viewer${location.id}.html`}
+            className="group relative cursor-pointer overflow-hidden rounded-lg shadow-lg transition-transform duration-300 hover:scale-[1.03]"
           >
-            <div className="w-full h-48 relative">
+            <div className="relative w-full aspect-square min-h-[250px]">
               <Image
                 src={location.image}
                 alt={location.title}
                 fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 style={{ objectFit: 'cover' }}
                 className="transition-transform duration-500 group-hover:scale-110"
               />
-              <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                <span className="text-white text-lg font-bold">{location.title}</span>
+              <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                <span className="text-white text-xl font-bold">{location.title}</span>
+                <p className="mt-1 text-sm text-gray-300 text-center">{location.description}</p>
               </div>
             </div>
-          </div>
+          </a>
         ))}
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }
