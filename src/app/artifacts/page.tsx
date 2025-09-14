@@ -8,73 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-
-const artifacts = [
-  {
-    title: "Phurba Dagger",
-    description: "A ritual dagger used in Vajrayana Buddhist ceremonies to subdue demonic forces and clear spiritual obstacles.",
-    image: "https://raw.githubusercontent.com/harshyadav2810/Sikkim-Monastery-project/main/sp1.jpeg",
-    tags: ["Ritual", "Vajrayana", "Ceremony"],
-    hint: "buddhist ritual dagger",
-    wikiUrl: "https://en.wikipedia.org/wiki/Phurba",
-  },
-  {
-    title: "Singing Bowl",
-    description: "A metal bowl that produces a rich, resonant sound when played, used for meditation and healing.",
-    image: "https://raw.githubusercontent.com/harshyadav2810/Sikkim-Monastery-project/main/sp2.jpeg",
-    tags: ["Meditation", "Sound", "Healing"],
-    hint: "tibetan singing bowl",
-    wikiUrl: "https://en.wikipedia.org/wiki/Singing_bowl",
-  },
-  {
-    title: "Thangka Painting",
-    description: "A Tibetan Buddhist painting on cotton or silk, typically depicting a deity, scene, or mandala.",
-    image: "https://raw.githubusercontent.com/harshyadav2810/Sikkim-Monastery-project/main/sp3.jpeg",
-    tags: ["Art", "Painting", "Mandala"],
-    hint: "tibetan thangka",
-    wikiUrl: "https://en.wikipedia.org/wiki/Thangka",
-  },
-  {
-    title: "Vajra Dorje",
-    description: "A symbolic thunderbolt and diamond, representing firmness of spirit and spiritual power.",
-    image: "https://raw.githubusercontent.com/harshyadav2810/Sikkim-Monastery-project/main/sp4.jpeg",
-    tags: ["Symbol", "Power", "Vajrayana"],
-    hint: "vajra",
-    wikiUrl: "https://en.wikipedia.org/wiki/Vajra",
-  },
-  {
-    title: "Prayer Wheel",
-    description: "A cylindrical wheel on a spindle, containing mantras. Spinning it is believed to have the same merit as reciting the mantra.",
-    image: "https://raw.githubusercontent.com/harshyadav2810/Sikkim-Monastery-project/main/sp5.jpeg",
-    tags: ["Ritual", "Mantra", "Prayer"],
-    hint: "tibetan prayer wheel",
-    wikiUrl: "https://en.wikipedia.org/wiki/Prayer_wheel",
-  },
-  {
-    title: "Ghanta (Bell)",
-    description: "A ritual bell representing wisdom, often used in conjunction with the vajra (thunderbolt).",
-    image: "https://raw.githubusercontent.com/harshyadav2810/Sikkim-Monastery-project/main/sp6.jpeg",
-    tags: ["Ritual", "Wisdom", "Instrument"],
-    hint: "buddhist ritual bell",
-    wikiUrl: "https://en.wikipedia.org/wiki/Ghanta",
-  },
-  {
-    title: "Manjushri Statue",
-    description: "A statue of the Bodhisattva Manjushri, symbolizing transcendent wisdom. Found in many of Sikkim's monasteries.",
-    image: "https://raw.githubusercontent.com/harshyadav2810/Sikkim-Monastery-project/main/sp7.jpeg",
-    tags: ["Deity", "Statue", "Wisdom"],
-    hint: "bodhisattva statue",
-    wikiUrl: "https://en.wikipedia.org/wiki/Manjushri",
-  },
-  {
-    title: "Butter Lamp",
-    description: "A traditional lamp fueled by clarified butter, representing the light of wisdom and the removal of ignorance.",
-    image: "https://raw.githubusercontent.com/harshyadav2810/Sikkim-Monastery-project/main/sp8.jpeg",
-    tags: ["Ritual", "Symbol", "Light"],
-    hint: "buddhist butter lamp",
-    wikiUrl: "https://en.wikipedia.org/wiki/Butter_lamp",
-  },
-];
+import { artifacts } from "@/lib/data";
 
 export default function ArtifactsPage() {
   return (

@@ -14,34 +14,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-
-const murals = [
-  {
-    title: "Wheel of Life (Bhavacakra)",
-    description: "Ralang Monastery- One of the premium monastery in Sikkim belongs to the Kagyu order of Tibetan Buddhism.Though the one we visited is a new one which is in no doubt one of the most beautiful monastery in terms of architecture, wall Paintings etc.",
-    image: "https://raw.githubusercontent.com/harshyadav2810/Sikkim-Monastery-project/main/mon2.jpg"
-      ,
-    hint: "bhavacakra mural",
-  },
-  {
-    title: "Mandala of Avalokiteshvara",
-    description: "Sikkim as a land deserves extra attention for the harmonious existence of different cultures and how it all coexists in peace. Amongst other things in Sikkim that deserves special mentions are the numbers of Buddhist Monasteries present there",
-    image: "https://raw.githubusercontent.com/harshyadav2810/Sikkim-Monastery-project/main/mon3.jpg",
-    hint: "mandala mural",
-  },
-  {
-    title: "Life of the Buddha",
-    description: "Pemayangtse Monastery is one of the most famous and beautiful structures in the state of Sikkim, situated near a small town of Pelling,",
-    image: "https://raw.githubusercontent.com/harshyadav2810/Sikkim-Monastery-project/main/mon4.jpg",
-    hint: "buddha mural",
-  },
-  {
-    title: "Guru Padmasambhava",
-    description: "A mural dedicated to the 'Second Buddha,' who is credited with bringing Buddhism to Tibet and Sikkim.",
-    image: "https://raw.githubusercontent.com/harshyadav2810/Sikkim-Monastery-project/main/monasteryjpgfinal.jpg",
-    hint: "padmasambhava mural",
-  },
-];
+import { murals } from "@/lib/data";
 
 export default function MuralsPage() {
   return (

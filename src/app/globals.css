@@ -116,3 +116,20 @@
     left: 72% !important;
   }
 }
+
+.pwa-install-banner {
+  background-color: #000;
+  color: #fff;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pwa-install-banner p {
+  margin: 0;
+}
+
+.pwa-install-banner button {
+  margin-left: 1rem;
+}
