@@ -84,7 +84,6 @@ export default function FestivalsPage() {
   });
 
   return (
-    // The main container is now conditional
     <div className="flex justify-center items-center p-4 min-h-screen text-card-foreground"
       style={{
         backgroundImage: playingVideoUrl ? 'none' : 'url(https://raw.githubusercontent.com/harshyadav2810/Sikkim-Monastery-project/main/mon3.jpg)',
@@ -93,7 +92,6 @@ export default function FestivalsPage() {
         backgroundAttachment: 'fixed',
       }}>
       {playingVideoUrl ? (
-        // --- Video Player View ---
         <div className="relative flex justify-center items-center w-full h-screen bg-black">
           <button 
             onClick={() => setPlayingVideoUrl(null)} 
@@ -112,35 +110,30 @@ export default function FestivalsPage() {
           </div>
         </div>
       ) : (
-        // --- Calendar View (The original layout) ---
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full max-w-5xl p-6 rounded-lg bg-background/90 backdrop-blur-sm shadow-2xl">
-          <div className="flex justify-center">
-            <Card className="border-none shadow-none bg-transparent">
-              <CardContent className="p-0 flex justify-center">
-                <Calendar
-                  mode="single"
-                  selected={date}
-                  onSelect={setDate}
-                  className="rounded-md bg-transparent"
-                  month={visibleMonth}
-                  onMonthChange={setVisibleMonth}
-                  showOutsideDays={false}
-                  modifiers={{
-                    event: eventDays,
-                  }}
-                  modifiersStyles={{
-                    event: {
-                      backgroundColor: 'hsl(var(--accent))',
-                      color: 'hsl(var(--accent-foreground))',
-                      borderRadius: '50%',
-                      fontWeight: 'bold',
-                    }
-                  }}
-                />
-              </CardContent>
-            </Card>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl p-6 rounded-lg bg-background/90 backdrop-blur-sm shadow-2xl">
+          <div className="md:col-span-1">
+            <Calendar
+              mode="single"
+              selected={date}
+              onSelect={setDate}
+              className="rounded-md bg-transparent mx-auto"
+              month={visibleMonth}
+              onMonthChange={setVisibleMonth}
+              showOutsideDays={false}
+              modifiers={{
+                event: eventDays,
+              }}
+              modifiersStyles={{
+                event: {
+                  backgroundColor: 'hsl(var(--accent))',
+                  color: 'hsl(var(--accent-foreground))',
+                  borderRadius: '50%',
+                  fontWeight: 'bold',
+                }
+              }}
+            />
           </div>
-          <div className="flex flex-col">
+          <div className="md:col-span-1 flex flex-col">
             <Card className="border-none shadow-none bg-transparent">
               <CardHeader>
                 <CardTitle className="font-headline text-2xl">
