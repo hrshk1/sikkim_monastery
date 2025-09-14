@@ -41,6 +41,15 @@ const NewSiteHeader = () => {
             <Link href="/murals" className="text-sm font-medium text-gray-500 transition-colors hover:text-gray-900">
               Murals
             </Link>
+            <Link href="/virtual-tour" className="text-sm font-medium text-gray-500 transition-colors hover:text-gray-900">
+              Virtual Tour
+            </Link>
+            <Link href="/community" className="text-sm font-medium text-gray-500 transition-colors hover:text-gray-900">
+              Community
+            </Link>
+            <Link href="/donations" className="text-sm font-medium text-gray-500 transition-colors hover:text-gray-900">
+              Donations
+            </Link>
             <Link href="/new-ui" className="text-sm font-medium text-gray-500 transition-colors hover:text-gray-900">
               New UI
             </Link>
