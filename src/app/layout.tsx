@@ -41,6 +41,9 @@ const NewSiteHeader = () => {
             <Link href="/murals" className="text-sm font-medium text-gray-500 transition-colors hover:text-gray-900">
               Murals
             </Link>
+            <Link href="/new-ui" className="text-sm font-medium text-gray-500 transition-colors hover:text-gray-900">
+              New UI
+            </Link>
           </nav>
         </div>
       </div>
